@@ -282,27 +282,22 @@ apt-get install bc -y &>/dev/null && echo -e "\033[97m    ◽️ INSTALANDO BC" 
      *)exit;;
    esac
  done
-incertar_key() {
  fun_idi
  #title "[----► NEAR SCRIPT•MOD ◄----]"
  fun_ip
  while [[ ! $Key ]]; do
-  clear
-  fun_idi
   echo -e "  $(msg -verm3 "╭╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼[")$(msg -azu "INGRESA TU KEY")$(msg -verm3 "]")"
   echo -ne "  $(msg -verm3 "╰╼")\033[37;1m>\e[32m\e[1m "
   read Key
  done
  msg -bar3
  msg -ne " Verificando Key: "
- }
-
  cd $HOME
  wget -O $HOME/lista-arq $(ofus "$Key")/$IP > /dev/null 2>&1 && msg -verd "Key Completa" || {
     msg -verm2 "Key Invalida"
     msg -bar
     [[ -e $HOME/lista-arq ]] && rm $HOME/lista-arq
-    incertar_key
+    exit
     }
  msg -bar3
  
