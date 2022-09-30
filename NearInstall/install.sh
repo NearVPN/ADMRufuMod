@@ -95,10 +95,12 @@
       dpkg --configure -a >/dev/null 2>&1
       sleep 2
       tput cuu1 && tput dl1
+      sleep 2
+      tput cuu1 && tput dl1
+      sistema22
+      tput cuu1 && tput dl1
       msg -nazu "      Instalando python$(msg -ama "$pts")"
       if apt install python2 -y &>/dev/null ; then
-        sleep 3
-        sistema22
         msg -verd "INSTALADO"
       else
         msg -verm2 "FAIL"
@@ -113,7 +115,7 @@
 }
 
 sistema22(){
-if [[ ! -e ${ADMRufu}/fixer ]]; then
+if [[ ! -e /etc/VPS-MX/fixer ]]; then
     #echo ""
 ins(){
 export PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games/
@@ -122,11 +124,11 @@ apt-get install python -y
 apt install python pip -y
 rm -rf /usr/bin/python; ln -s /usr/bin/python2.7 /usr/bin/python
 }
-ins &>/dev/null
+ins &>/dev/null && echo -e "" | pv -qL 40
 sleep 1.s
-[[ ! -e ${ADMRufu}/fixer ]] && touch ${ADMRufu}/fixer
+[[ ! -e /etc/VPS-MX/fixer ]] && touch /etc/VPS-MX/fixer
 else
-echo ""
+#echo ""
 fi
 }
  
