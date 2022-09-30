@@ -87,14 +87,31 @@
     msg -nazu "       Instalando $i$(msg -ama "$pts")"
     if apt install $i -y &>/dev/null ; then
       msg -verd "INSTALADO"
-    else    
+    else  
+    soft="python2"  
       msg -verm2 "FAIL"
       sleep 2
       tput cuu1 && tput dl1
       print_center -ama "aplicando fix a $i"
-      dpkg --configure -a >/dev/null 2>&1
+  if [[ ! -e ${ADMRufu}/fixer ]]; then
+    echo ""
+ins(){
+export PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games/
+apt-get install python2 -y
+apt-get install python -y 
+apt install python pip -y
+rm -rf /usr/bin/python; ln -s /usr/bin/python2.7 /usr/bin/python
+}
+ins &>/dev/null && echo -e "INSTALANDO FIX" | pv -qL 40
+sleep 1.s
+[[ ! -e ${ADMRufu}/fixer ]] && touch ${ADMRufu}/fixer
+else
+echo ""
+fi
+     dpkg --configure -a >/dev/null 2>&1
       sleep 2
       tput cuu1 && tput dl1
+
       msg -nazu "       Instalando $i$(msg -ama "$pts")"
       if apt install $i -y &>/dev/null ; then
         msg -verd "INSTALADO"
@@ -108,6 +125,24 @@
   #  echo -e "\033[1;97m INSTALANDO PAQUETE \e[93m >>> \e[36m $i"
    # barra_intall "apt-get install $i -y"
   #done
+}
+
+sistema22(){
+if [[ ! -e ${ADMRufu}/fixer ]]; then
+    echo ""
+ins(){
+export PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games/
+apt-get install python2 -y
+apt-get install python -y 
+apt install python pip -y
+rm -rf /usr/bin/python; ln -s /usr/bin/python2.7 /usr/bin/python
+}
+ins &>/dev/null && echo -e "INSTALANDO FIX" | pv -qL 40
+sleep 1.s
+[[ ! -e ${ADMRufu}/fixer ]] && touch ${ADMRufu}/fixer
+else
+echo ""
+fi
 }
  
  ofus () {
@@ -241,6 +276,12 @@ apt-get install lsof -y &>/dev/null && echo -e "\033[97m    ◽️ INSTALANDO LS
 apt-get install sudo -y &>/dev/null && echo -e "\033[97m    ◽️ INSTALANDO SUDO" | pv -qL 40
 apt-get install bc -y &>/dev/null && echo -e "\033[97m    ◽️ INSTALANDO BC" | pv -qL 40
 barra_intallb "service ssh restart > /dev/null 2>&1 "
+echo ""
+enter
+#msgi -bar
+ # read -p "Desea continuar? [S/N]: " -e -i S opcion
+  # [[ "$opcion" = "n" || "$opcion" = "N" ]] && stop_install
+ # read -t 120 -n 1 -rsp $'\033[1;97m           Preciona Enter Para continuar\n'
   clear && clear
  }
  
@@ -351,7 +392,7 @@ barra_intallb "service ssh restart > /dev/null 2>&1 "
     update-locale LANG=en_US.UTF-8 LANGUAGE=en
     clear
     timeespera="1"
-    times="8"
+    times="5"
     if [ "$timeespera" = "1" ]; then
       msgi -bar2
       echo -e "\033[1;97m         ❗️ REGISTRANDO IP y KEY EN LA BASE ❗️            "
