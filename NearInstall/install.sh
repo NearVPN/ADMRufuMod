@@ -196,6 +196,17 @@ echo "$txtofus" | rev
  }
  
  install_start(){
+   msgi -bar2
+  echo -e "\033[1;93m\a\a\a      SE PROCEDERA A INSTALAR LAS ACTULIZACIONES\n PERTINENTES DEL SISTEMA, ESTE PROCESO PUEDE TARDAR\n VARIOS MINUTOS Y PUEDE PEDIR ALGUNAS CONFIRMACIONES \033[0;37m"
+  msgi -bar
+  read -p "Desea continuar? [S/N]: " -e -i S opcion
+   [[ "$opcion" = "n" || "$opcion" = "N" ]] && stop_install
+ # read -t 120 -n 1 -rsp $'\033[1;97m           Preciona Enter Para continuar\n'
+  clear && clear
+   os_system
+   repo "${vercion}"
+   apt update -y; apt upgrade -y  
+  echo ""
   apt install pv -y &> /dev/null
   apt install pv -y -qq --silent > /dev/null 2>&1
   clear && clear
@@ -245,16 +256,6 @@ apt-get install lsof -y &>/dev/null && echo -e "\033[97m    ◽️ INSTALANDO LS
 apt-get install sudo -y &>/dev/null && echo -e "\033[97m    ◽️ INSTALANDO SUDO" | pv -qL 40
 apt-get install bc -y &>/dev/null && echo -e "\033[97m    ◽️ INSTALANDO BC" | pv -qL 40
   barra_intallb "service ssh restart > /dev/null 2>&1 "
-  msgi -bar2
-  echo -e "\033[1;93m\a\a\a      SE PROCEDERA A INSTALAR LAS ACTULIZACIONES\n PERTINENTES DEL SISTEMA, ESTE PROCESO PUEDE TARDAR\n VARIOS MINUTOS Y PUEDE PEDIR ALGUNAS CONFIRMACIONES \033[0;37m"
-  msgi -bar
-  read -p "Desea continuar? [S/N]: " -e -i S opcion
-   [[ "$opcion" = "n" || "$opcion" = "N" ]] && stop_install
- # read -t 120 -n 1 -rsp $'\033[1;97m           Preciona Enter Para continuar\n'
-  clear && clear
-   os_system
-   repo "${vercion}"
-   apt update -y; apt upgrade -y  
  }
  
  install_continue(){
