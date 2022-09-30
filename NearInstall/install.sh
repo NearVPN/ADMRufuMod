@@ -169,6 +169,7 @@ echo "$txtofus" | rev
  }
  
  install_start(){
+  clear && clear
   #-- VERIFICAR VERSION
   ### INTALAR VERCION DE SCRIPT
    ver=$(curl -sSL "https://raw.githubusercontent.com/NearVPN/ADMRufuMod/main/vercion")
