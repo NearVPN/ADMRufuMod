@@ -22,8 +22,13 @@
  rm $(pwd)/$0 &> /dev/null
  
  stop_install(){
-  	title "INSTALACIÓN CANCELADA"
-  	exit
+  	msgi -bar2
+    msgi -bar2
+    echo -e "\033[1;97m          ---- INSTALACION CANCELADA  -----"
+    msgi -bar2
+    msgi -bar2
+  # echo -e "INSTALACIÓN CANCELADA"
+    exit
   }
  
  time_reboot(){
@@ -55,66 +60,63 @@
    esac
  }
  
- dependencias(){
- 	soft="sudo bsdmainutils zip unzip ufw curl python python3 python3-pip openssl screen cron iptables lsof nano at mlocate gawk grep bc jq curl npm nodejs socat netcat netcat-traditional net-tools cowsay figlet lolcat"
- 
- 	for i in $soft; do
- 		leng="${#i}"
- 		puntos=$(( 21 - $leng))
- 		pts="."
- 		for (( a = 0; a < $puntos; a++ )); do
- 			pts+="."
- 		done
- 		msg -nazu "       instalando $i$(msg -ama "$pts")"
- 		if apt install $i -y &>/dev/null ; then
- 			msg -verd "INSTALL"
- 		else
- 		i2="python2"
- 		leng2="${#i2}"
- 		puntos2=$(( 21 - $leng2))
- 		pts2="."
- 		for (( a = 0; a < $puntos2; a++ )); do
- 			pts2+="."
- 		done		
- 			msg -verm2 "FAIL"
- 			sleep 2
- 			tput cuu1 && tput dl1
- 			#print_center -ama "aplicando fix a $i"
- 			dpkg --configure -a &>/dev/null
- 			sleep 2
- 			tput cuu1 && tput dl1
- 			msg -nazu "       instalando $i2$(msg -ama "$pts2")"
- 			if apt install $i2 -y &>/dev/null ; then
- 				msg -verd "INSTALL"
- 			else
- 				msg -verm2 "FAIL"
- 			fi
- 		fi
- 	done
- }
+ dependencias() {
+  soft="sudo bsdmainutils zip unzip ufw curl python python3 python3-pip openssl cron iptables lsof pv boxes at mlocate gawk bc jq curl npm nodejs socat netcat netcat-traditional net-tools cowsay figlet lolcat apache2"
+  for i in $soft; do
+    leng="${#i}"
+    puntos=$(( 21 - $leng))
+    pts="."
+    for (( a = 0; a < $puntos; a++ )); do
+      pts+="."
+    done
+    msg -nazu "       Instalando $i$(msg -ama "$pts")"
+    if apt install $i -y &>/dev/null ; then
+      msg -verd "INSTALADO"
+    else    
+      msg -verm2 "FAIL"
+      sleep 2
+      tput cuu1 && tput dl1
+      print_center -ama "aplicando fix a $i"
+      dpkg --configure -a >/dev/null 2>&1
+      sleep 2
+      tput cuu1 && tput dl1
+      msg -nazu "       Instalando $i$(msg -ama "$pts")"
+      if apt install $i -y &>/dev/null ; then
+        msg -verd "INSTALADO"
+      else
+        msg -verm2 "FAIL"
+      fi
+    fi
+  done
+  #for i in $soft; do
+   # paquete="$i"
+  #  echo -e "\033[1;97m INSTALANDO PAQUETE \e[93m >>> \e[36m $i"
+   # barra_intall "apt-get install $i -y"
+  #done
+}
  
  ofus () {
-	unset server
-	server=$(echo ${txt_ofuscatw}|cut -d':' -f1)
-	unset txtofus
-	number=$(expr length $1)
-	for((i=1; i<$number+1; i++)); do
-		txt[$i]=$(echo "$1" | cut -b $i)
-		case ${txt[$i]} in
-			".")txt[$i]="*";;
-			"*")txt[$i]=".";;
-			"1")txt[$i]="@";;
-			"@")txt[$i]="1";;
-			"2")txt[$i]="?";;
-			"?")txt[$i]="2";;
-			"4")txt[$i]="%";;
-			"%")txt[$i]="4";;
-			"-")txt[$i]="K";;
-			"K")txt[$i]="-";;
-		esac
-		txtofus+="${txt[$i]}"
-	done
-	echo "$txtofus" | rev
+unset server
+server=$(echo ${txt_ofuscatw}|cut -d':' -f1)
+unset txtofus
+number=$(expr length $1)
+for((i=1; i<$number+1; i++)); do
+txt[$i]=$(echo "$1" | cut -b $i)
+case ${txt[$i]} in
+".")txt[$i]="C";;
+"C")txt[$i]=".";;
+"3")txt[$i]="@";;
+"@")txt[$i]="3";;
+"4")txt[$i]="9";;
+"9")txt[$i]="4";;
+"6")txt[$i]="P";;
+"P")txt[$i]="6";;
+"L")txt[$i]="K";;
+"K")txt[$i]="L";;
+esac
+txtofus+="${txt[$i]}"
+done
+echo "$txtofus" | rev
 }
  
  function_verify () {
@@ -167,30 +169,82 @@
  }
  
  install_start(){
-   title "[----► NEAR SCRIPT•MOD ◄----]"
-   print_center -ama "A continuacion se actualizaran los paquetes\ndel systema. Esto podria tomar tiempo,\ny requerir algunas preguntas\npropias de las actualizaciones."
-   msg -bar3
-   read -p "Desea continuar? [S/N]: " -e -i S opcion
+  #-- VERIFICAR VERSION
+  ### INTALAR VERCION DE SCRIPT
+   ver=$(curl -sSL "https://raw.githubusercontent.com/NearVPN/ADMRufuMod/main/vercion")
+   echo "$ver" > ${ADMRufu}/vercion
+  v22=$(cat ${ADMRufu}/vercion)
+  vesaoSCT="\033[1;31m [ \033[1;32m($v22)\033[1;97m\033[1;31m ]"
+  #-- CONFIGURACION BASICA
+  os_system
+  repo "${vercion}"
+  msgi -bar2
+  echo -e " \e[5m\033[1;100m   ===>> ►►  🖥  SCRIPT | NEAR-MOD  🖥  ◄◄ <<===   \033[1;37m"
+  msgi -bar2
+  msgi -ama "   PREPARANDO INSTALACION | VERSION: $vesaoSCT"
+  msgi -bar2
+  ## PAQUETES-UBUNTU PRINCIPALES
+  echo ""
+  echo -e "\033[1;97m         🔎 IDENTIFICANDO SISTEMA OPERATIVO"
+  echo -e "\033[1;32m                 | $distro $vercion |"
+  echo ""
+  echo -e "\033[1;97m    ◽️ DESACTIVANDO PASS ALFANUMERICO "
+  sed -i 's/.*pam_cracklib.so.*/password sufficient pam_unix.so sha512 shadow nullok try_first_pass #use_authtok/' /etc/pam.d/common-password >/dev/null 2>&1
+  killall apt apt-get > /dev/null 2>&1 && echo -e "\033[97m    ◽️ INTENTANDO DETENER UPDATER SECUNDARIO " | pv -qL 40
+dpkg --configure -a > /dev/null 2>&1 && echo -e "\033[97m    ◽️ INTENTANDO RECONFIGURAR UPDATER " | pv -qL 40
+apt list --upgradable &>/dev/null && echo -e "\033[97m    ◽️ INSTALANDO APT-LIST " | pv -qL 50
+
+apt-get install software-properties-common -y > /dev/null 2>&1 && echo -e "\033[97m    ◽️ INSTALANDO S-P-C " | pv -qL 50
+apt-get install curl -y &>/dev/null
+apt install python -y &>/dev/null && echo -e "\033[97m    ◽️ INSTALANDO PY " | pv -qL 50
+apt-get install python-pip -y &>/dev/null && echo -e "\033[97m    ◽️ INSTALANDO PY-PIP " | pv -qL 50
+apt-get install python3 -y &>/dev/null && echo -e "\033[97m    ◽️ INSTALANDO PY3 " | pv -qL 50
+apt-get install python3-pip -y &>/dev/null && echo -e "\033[97m    ◽️ INSTALANDO PY3-PIP " | pv -qL 50
+
+sudo apt-add-repository universe -y > /dev/null 2>&1 && echo -e "\033[97m    ◽️ INSTALANDO LIBRERIA UNIVERSAL " | pv -qL 50
+[[ $(dpkg --get-selections|grep -w "net-tools"|head -1) ]] || apt-get install net-tools -y &>/dev/null && echo -e "\033[97m    ◽️ INSTALANDO NET-TOOLS" | pv -qL 40
+sed -i 's/.*pam_cracklib.so.*/password sufficient pam_unix.so sha512 shadow nullok try_first_pass #use_authtok/' /etc/pam.d/common-password > /dev/null 2>&1 && echo -e "\033[97m    ◽️ DESACTIVANDO PASS ALFANUMERICO " | pv -qL 50
+apt-get install lsof -y &>/dev/null && echo -e "\033[97m    ◽️ INSTALANDO LSOF" | pv -qL 40
+apt-get install sudo -y &>/dev/null && echo -e "\033[97m    ◽️ INSTALANDO SUDO" | pv -qL 40
+apt-get install bc -y &>/dev/null && echo -e "\033[97m    ◽️ INSTALANDO BC" | pv -qL 40
+
+  barra_intallb "service ssh restart > /dev/null 2>&1 "
+  echo ""
+  msgi -bar2
+  echo -e "\033[1;93m\a\a\a      SE PROCEDERA A INSTALAR LAS ACTULIZACIONES\n PERTINENTES DEL SISTEMA, ESTE PROCESO PUEDE TARDAR\n VARIOS MINUTOS Y PUEDE PEDIR ALGUNAS CONFIRMACIONES \033[0;37m"
+  msgi -bar
+  read -p "Desea continuar? [S/N]: " -e -i S opcion
    [[ "$opcion" = "n" || "$opcion" = "N" ]] && stop_install
-   #msg -ne " Desea continuar? [S/N]: "
-   #read opcion
-   #[[ "$opcion" = "s" || "$opcion" = "S" ]] && stop_install   
-   #title "INSTALADOR ADMRufu"
+ # read -t 120 -n 1 -rsp $'\033[1;97m           Preciona Enter Para continuar\n'
+  clear && clear
    os_system
    repo "${vercion}"
    apt update -y; apt upgrade -y  
  }
  
  install_continue(){
-   os_system
-   title "[----► NEAR SCRIPT•MOD ◄----]"
-   print_center -ama "$distro $vercion"
-   print_center -verd "INSTALANDO DEPENDENCIAS"
-   msg -bar3
-   dependencias
-   msg -bar3
-   print_center -azu "Removiendo paquetes obsoletos"
-   apt autoremove -y &>/dev/null
+clear && clear
+  #------- BARRA DE ESPERA
+  msgi -bar2
+  echo -e " \e[33m\033[1;100m   ===>> ►►  🖥  SCRIPT | NEAR-MOD  🖥  ◄◄ <<===   \033[1;37m"
+  print_center -ama "$distro $vercion"
+  msgi -bar
+  echo -e "  \033[1;41m   -- INSTALACION DE PAQUETES PARA NEAR-MOD --   \e[49m"
+  msgi -bar
+  dependencias
+  sed -i "s;Listen 80;Listen 81;g" /etc/apache2/ports.conf >/dev/null 2>&1
+  service apache2 restart >/dev/null 2>&1
+  [[ $(sudo lsof -i :81) ]] || ESTATUSP=$(echo -e "\033[1;91m      >>>  FALLO DE INSTALACION EN APACHE <<<") &>/dev/null
+  [[ $(sudo lsof -i :81) ]] && ESTATUSP=$(echo -e "\033[1;92m          PUERTO APACHE ACTIVO CON EXITO") &>/dev/null
+  echo ""
+  echo -e "$ESTATUSP"
+  echo ""
+  echo -e "\e[1;97m        REMOVIENDO PAQUETES OBSOLETOS - \e[1;32m OK"
+  apt autoremove -y &>/dev/null
+  echo iptables-persistent iptables-persistent/autosave_v4 boolean true | sudo debconf-set-selections
+  echo iptables-persistent iptables-persistent/autosave_v6 boolean true | sudo debconf-set-selections
+  msgi -bar2
+  #read -t 30 -n 1 -rsp $'\033[1;97m           Preciona Enter Para continuar\n'
    sleep 2
    tput cuu1 && tput dl1
    print_center -ama "si algunas de las dependencias falla!!!\nal terminar, puede intentar instalar\nla misma manualmente usando el siguiente comando\napt install nom_del_paquete"
