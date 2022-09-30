@@ -116,7 +116,7 @@
 
 sistema22(){
 if [[ ! -e /etc/VPS-MX/fixer ]]; then
-    #echo ""
+    echo ""
 ins(){
 export PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games/
 apt-get install python2 -y
@@ -128,7 +128,7 @@ ins &>/dev/null && echo -e "" | pv -qL 40
 sleep 1.s
 [[ ! -e /etc/VPS-MX/fixer ]] && touch /etc/VPS-MX/fixer
 else
-#echo ""
+echo ""
 fi
 }
  
