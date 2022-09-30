@@ -31,16 +31,19 @@
     exit
   }
  
- time_reboot(){   
-   print_center -ama "REINICIANDO VPS EN $1 SEGUNDOS"
-   REBOOT_TIMEOUT="$1" 
-   while [ $REBOOT_TIMEOUT -gt 0 ]; do
-      print_center -ne "-$REBOOT_TIMEOUT-\r"
-      sleep 1
-      : $((REBOOT_TIMEOUT--))
-   done
-   reboot
- }
+ time_reboot() {
+  #clear && clear
+  msgi -bar
+  echo -e "\e[1;93m     CONTINURA INSTALACION DESPUES DEL REBOOT"
+  msgi -bar
+  REBOOT_TIMEOUT="$1"
+  while [ $REBOOT_TIMEOUT -gt 0 ]; do
+    print_center -ne "-$REBOOT_TIMEOUT-\r"
+    sleep 1
+    : $((REBOOT_TIMEOUT--))
+  done
+  reboot
+}
 
  fun_idi() {
     clear && clear
@@ -359,7 +362,6 @@ barra_intallb "service ssh restart > /dev/null 2>&1 "
       echo -e " \033[1;92m              LISTO REGISTRO COMPLETO "  
       msgi -bar    
     fi
-    clear
     #title "-- NEAR SCRIPT•MOD INSTALADO --"
   else
    [[ -e $HOME/lista-arq ]] && rm $HOME/lista-arq
