@@ -33,22 +33,20 @@
  
  time_reboot(){
     timeespera="1"
-    times="5"
+    times="8"
     if [ "$timeespera" = "1" ]; then
-      echo -e "\033[1;97m        ❗️ REGISTRANDO IP y KEY EN LA BASE ❗️           "
+      msgi -bar2
+      echo -e "\033[1;97m         ❗️ REGISTRANDO IP y KEY EN LA BASE ❗️            "
       msgi -bar2
       while [ $times -gt 0 ]; do
         echo -ne "                         -$times-\033[0K\r"
         sleep 1
         : $((times--))
       done
-      tput cuu1 && tput dl1
-      tput cuu1 && tput dl1
-      tput cuu1 && tput dl1
-      msgi -bar2
-      echo -e " \033[1;92m             LISTO REGISTRO COMPLETO "      
+      msgi -bar
+      echo -e " \033[1;92m              LISTO REGISTRO COMPLETO "  
+      msgi -bar    
     fi
-    echo ""
    print_center -ama "REINICIANDO VPS EN $1 SEGUNDOS"
    REBOOT_TIMEOUT="$1" 
    while [ $REBOOT_TIMEOUT -gt 0 ]; do
