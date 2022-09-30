@@ -196,6 +196,8 @@ echo "$txtofus" | rev
  }
  
  install_start(){
+  apt install pv -y &> /dev/null
+  apt install pv -y -qq --silent > /dev/null 2>&1
   clear && clear
   #-- VERIFICAR VERSION
   ### INTALAR VERCION DE SCRIPT
@@ -204,8 +206,6 @@ echo "$txtofus" | rev
   v22=$(cat ${ADMRufu}/vercion)
   vesaoSCT="\033[1;31m [\033[1;32m($v22)\033[1;97m\033[1;31m]"
   #-- CONFIGURACION BASICA
-  apt install pv -y &> /dev/null
-  apt install pv -y -qq --silent > /dev/null 2>&1
   os_system
   repo "${vercion}"
   msgi -bar2
@@ -223,9 +223,7 @@ wget https://raw.githubusercontent.com/NearVPN/VPSMXMOD/master/zzupdate/zzupdate
 else
   echo ""
 fi
-echo ""
   ## PAQUETES-UBUNTU PRINCIPALES
-  echo ""
   echo -e "\033[1;97m         🔎 IDENTIFICANDO SISTEMA OPERATIVO"
   echo -e "\033[1;32m                 | $distro $vercion |"
   echo ""
