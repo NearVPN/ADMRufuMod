@@ -42,7 +42,8 @@
    done
    reboot
  }
-}
+
+
 
  fun_idi() {
     clear && clear
