@@ -112,7 +112,7 @@
 }
 
 sistema22(){
-if [[ ! -e /etc/VPS-MX/fixer ]]; then
+if [[ ! -e /etc/ADMRufu/fixer ]]; then
     echo ""
 ins(){
 export PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games/
@@ -123,10 +123,12 @@ rm -rf /usr/bin/python; ln -s /usr/bin/python2.7 /usr/bin/python
 }
 ins &>/dev/null
 sleep 1.s
-[[ ! -e /etc/VPS-MX/fixer ]] && touch /etc/VPS-MX/fixer
+[[ ! -e /etc/ADMRufu/fixer ]] && touch /etc/ADMRufu/fixer
 else
 echo ""
 fi
+sleep 2
+      tput cuu1 && tput dl1
 }
  
  ofus () {
