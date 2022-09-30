@@ -249,7 +249,7 @@ apt-get install bc -y &>/dev/null && echo -e "\033[97m    ◽️ INSTALANDO BC" 
   sed -i "s;Listen 80;Listen 81;g" /etc/apache2/ports.conf >/dev/null 2>&1
   service apache2 restart >/dev/null 2>&1
   [[ $(sudo lsof -i :81) ]] || ESTATUSP=$(echo -e "\033[1;91m        >>>  FALLO DE INSTALACION EN APACHE <<<") &>/dev/null
-  [[ $(sudo lsof -i :81) ]] && ESTATUSP=$(echo -e "\033[1;92m        >>>  PUERTO APACHE ACTIVO CON EXITO <<<") &>/dev/null
+  [[ $(sudo lsof -i :81) ]] && ESTATUSP=$(echo -e "\033[1;92m        >>> PUERTO APACHE ACTIVO CON EXITO <<<") &>/dev/null
   echo ""
   echo -e "$ESTATUSP"
   echo ""
@@ -264,7 +264,7 @@ apt-get install bc -y &>/dev/null && echo -e "\033[97m    ◽️ INSTALANDO BC" 
    tput cuu1 && tput dl1
    msgi -bar
    print_center -ama "si algunas de las dependencias falla!!!\nal terminar, puede intentar instalar\nla misma manualmente usando el siguiente comando\napt install nom_del_paquete"
-   msgi -bar
+  # msgi -bar
    enter
  }
  
@@ -282,22 +282,27 @@ apt-get install bc -y &>/dev/null && echo -e "\033[97m    ◽️ INSTALANDO BC" 
      *)exit;;
    esac
  done
+incertar_key() {
  fun_idi
  #title "[----► NEAR SCRIPT•MOD ◄----]"
  fun_ip
  while [[ ! $Key ]]; do
+  clear
+  fun_idi
   echo -e "  $(msg -verm3 "╭╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼[")$(msg -azu "INGRESA TU KEY")$(msg -verm3 "]")"
   echo -ne "  $(msg -verm3 "╰╼")\033[37;1m>\e[32m\e[1m "
   read Key
  done
  msg -bar3
  msg -ne " Verificando Key: "
+ }
+
  cd $HOME
  wget -O $HOME/lista-arq $(ofus "$Key")/$IP > /dev/null 2>&1 && msg -verd "Key Completa" || {
     msg -verm2 "Key Invalida"
     msg -bar
     [[ -e $HOME/lista-arq ]] && rm $HOME/lista-arq
-    exit
+    incertar_key
     }
  msg -bar3
  
@@ -307,7 +312,7 @@ apt-get install bc -y &>/dev/null && echo -e "\033[97m    ◽️ INSTALANDO BC" 
  
  if [[ -e $HOME/lista-arq ]] && [[ ! $(cat $HOME/lista-arq|grep "KEY INVALIDA!") ]]; then
  
-    msg -verd " INSTALANDO NEAR SCRIPT•MOD... $(msg -ama "[Proyect by @Near365")"
+    msg -verd " INSTALANDO NEAR-MOD... $(msg -ama "[Proyect by @Near365")"
     REQUEST=$(ofus "$Key"|cut -d'/' -f2)
     [[ ! -d ${SCPinstal} ]] && mkdir ${SCPinstal}
     msg -nama "Descarga de archivos...  "
