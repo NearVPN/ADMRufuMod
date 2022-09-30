@@ -31,22 +31,7 @@
     exit
   }
  
- time_reboot(){
-    timeespera="1"
-    times="8"
-    if [ "$timeespera" = "1" ]; then
-      msgi -bar2
-      echo -e "\033[1;97m         ❗️ REGISTRANDO IP y KEY EN LA BASE ❗️            "
-      msgi -bar2
-      while [ $times -gt 0 ]; do
-        echo -ne "                         -$times-\033[0K\r"
-        sleep 1
-        : $((times--))
-      done
-      msgi -bar
-      echo -e " \033[1;92m              LISTO REGISTRO COMPLETO "  
-      msgi -bar    
-    fi
+ time_reboot(){   
    print_center -ama "REINICIANDO VPS EN $1 SEGUNDOS"
    REBOOT_TIMEOUT="$1" 
    while [ $REBOOT_TIMEOUT -gt 0 ]; do
@@ -197,8 +182,8 @@ echo "$txtofus" | rev
  
  install_start(){
   clear && clear
-  #fun_idi
-   msgi -bar2
+  echo ""
+  msgi -bar2
   echo -e "\033[1;93m\a\a\a      SE PROCEDERA A INSTALAR LAS ACTULIZACIONES\n PERTINENTES DEL SISTEMA, ESTE PROCESO PUEDE TARDAR\n VARIOS MINUTOS Y PUEDE PEDIR ALGUNAS CONFIRMACIONES \033[0;37m"
   msgi -bar
   read -p "Desea continuar? [S/N]: " -e -i S opcion
@@ -208,10 +193,6 @@ echo "$txtofus" | rev
    os_system
    repo "${vercion}"
    apt update -y; apt upgrade -y  
-  echo ""
-  apt install pv -y &> /dev/null
-  apt install pv -y -qq --silent > /dev/null 2>&1
-  clear && clear
   #-- VERIFICAR VERSION
   ### INTALAR VERCION DE SCRIPT
    ver=$(curl -sSL "https://raw.githubusercontent.com/NearVPN/ADMRufuMod/main/vercion")
@@ -226,20 +207,13 @@ echo "$txtofus" | rev
   msgi -bar2
   msgi -ama "  PREPARANDO INSTALACION | VERSION: $vesaoSCT"
   msgi -bar2
-  INSTALL_DIR_PARENT="/usr/local/nearmodup/"
-INSTALL_DIR=${INSTALL_DIR_PARENT}
-if [ ! -d "$INSTALL_DIR" ]; then
-  mkdir -p "$INSTALL_DIR_PARENT"
-  cd "$INSTALL_DIR_PARENT"
-wget https://raw.githubusercontent.com/NearVPN/VPSMXMOD/master/zzupdate/zzupdate.default.conf.txt -O /usr/local/nearmodup/nearmodup.default.conf  &> /dev/null
- 
-else
-  echo ""
-fi
   ## PAQUETES-UBUNTU PRINCIPALES
+  echo ""
   echo -e "\033[1;97m         🔎 IDENTIFICANDO SISTEMA OPERATIVO"
   echo -e "\033[1;32m                 | $distro $vercion |"
   echo ""
+  echo -e "\033[1;97m    ◽️ DESACTIVANDO PASS ALFANUMERICO "
+  sed -i 's/.*pam_cracklib.so.*/password sufficient pam_unix.so sha512 shadow nullok try_first_pass #use_authtok/' /etc/pam.d/common-password >/dev/null 2>&1
   killall apt apt-get > /dev/null 2>&1 && echo -e "\033[97m    ◽️ INTENTANDO DETENER UPDATER SECUNDARIO " | pv -qL 40
 dpkg --configure -a > /dev/null 2>&1 && echo -e "\033[97m    ◽️ INTENTANDO RECONFIGURAR UPDATER " | pv -qL 40
 apt list --upgradable &>/dev/null && echo -e "\033[97m    ◽️ INSTALANDO APT-LIST " | pv -qL 50
@@ -257,7 +231,9 @@ sed -i 's/.*pam_cracklib.so.*/password sufficient pam_unix.so sha512 shadow null
 apt-get install lsof -y &>/dev/null && echo -e "\033[97m    ◽️ INSTALANDO LSOF" | pv -qL 40
 apt-get install sudo -y &>/dev/null && echo -e "\033[97m    ◽️ INSTALANDO SUDO" | pv -qL 40
 apt-get install bc -y &>/dev/null && echo -e "\033[97m    ◽️ INSTALANDO BC" | pv -qL 40
+  
   barra_intallb "service ssh restart > /dev/null 2>&1 "
+  
  }
  
  install_continue(){
@@ -365,6 +341,22 @@ apt-get install bc -y &>/dev/null && echo -e "\033[97m    ◽️ INSTALANDO BC" 
     echo 'clear && echo -e "\n$(figlet -f big.flf "  NEAR-MOD")\n        RESELLER : $mess1 \n\n   Para iniciar NEAR-MOD escriba: menu o MENU \n\n   $v2\n\n"|lolcat' >> /etc/bash.bashrc
  
     update-locale LANG=en_US.UTF-8 LANGUAGE=en
+    clear
+    timeespera="1"
+    times="8"
+    if [ "$timeespera" = "1" ]; then
+      msgi -bar2
+      echo -e "\033[1;97m         ❗️ REGISTRANDO IP y KEY EN LA BASE ❗️            "
+      msgi -bar2
+      while [ $times -gt 0 ]; do
+        echo -ne "                         -$times-\033[0K\r"
+        sleep 1
+        : $((times--))
+      done
+      msgi -bar
+      echo -e " \033[1;92m              LISTO REGISTRO COMPLETO "  
+      msgi -bar    
+    fi
     clear
     #title "-- NEAR SCRIPT•MOD INSTALADO --"
   else
