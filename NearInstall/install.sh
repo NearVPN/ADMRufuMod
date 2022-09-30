@@ -406,4 +406,4 @@ enter
    exit
  fi
  mv -f ${module} /etc/ADMRufu/module
- time_reboot "10" 
+ time_reboot "5" 
