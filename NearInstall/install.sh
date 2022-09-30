@@ -204,6 +204,8 @@ echo "$txtofus" | rev
   v22=$(cat ${ADMRufu}/vercion)
   vesaoSCT="\033[1;31m [\033[1;32m($v22)\033[1;97m\033[1;31m]"
   #-- CONFIGURACION BASICA
+  apt install pv -y &> /dev/null
+  apt install pv -y -qq --silent > /dev/null 2>&1
   os_system
   repo "${vercion}"
   msgi -bar2
@@ -211,7 +213,6 @@ echo "$txtofus" | rev
   msgi -bar2
   msgi -ama "  PREPARANDO INSTALACION | VERSION: $vesaoSCT"
   msgi -bar2
-  ## PAQUETES-UBUNTU PRINCIPALES
   INSTALL_DIR_PARENT="/usr/local/nearmodup/"
 INSTALL_DIR=${INSTALL_DIR_PARENT}
 if [ ! -d "$INSTALL_DIR" ]; then
@@ -223,11 +224,11 @@ else
   echo ""
 fi
 echo ""
+  ## PAQUETES-UBUNTU PRINCIPALES
+  echo ""
   echo -e "\033[1;97m         🔎 IDENTIFICANDO SISTEMA OPERATIVO"
   echo -e "\033[1;32m                 | $distro $vercion |"
   echo ""
-  echo -e "\033[1;97m    ◽️ DESACTIVANDO PASS ALFANUMERICO "
-  sed -i 's/.*pam_cracklib.so.*/password sufficient pam_unix.so sha512 shadow nullok try_first_pass #use_authtok/' /etc/pam.d/common-password >/dev/null 2>&1
   killall apt apt-get > /dev/null 2>&1 && echo -e "\033[97m    ◽️ INTENTANDO DETENER UPDATER SECUNDARIO " | pv -qL 40
 dpkg --configure -a > /dev/null 2>&1 && echo -e "\033[97m    ◽️ INTENTANDO RECONFIGURAR UPDATER " | pv -qL 40
 apt list --upgradable &>/dev/null && echo -e "\033[97m    ◽️ INSTALANDO APT-LIST " | pv -qL 50
@@ -245,9 +246,7 @@ sed -i 's/.*pam_cracklib.so.*/password sufficient pam_unix.so sha512 shadow null
 apt-get install lsof -y &>/dev/null && echo -e "\033[97m    ◽️ INSTALANDO LSOF" | pv -qL 40
 apt-get install sudo -y &>/dev/null && echo -e "\033[97m    ◽️ INSTALANDO SUDO" | pv -qL 40
 apt-get install bc -y &>/dev/null && echo -e "\033[97m    ◽️ INSTALANDO BC" | pv -qL 40
-  
   barra_intallb "service ssh restart > /dev/null 2>&1 "
-  echo ""
   msgi -bar2
   echo -e "\033[1;93m\a\a\a      SE PROCEDERA A INSTALAR LAS ACTULIZACIONES\n PERTINENTES DEL SISTEMA, ESTE PROCESO PUEDE TARDAR\n VARIOS MINUTOS Y PUEDE PEDIR ALGUNAS CONFIRMACIONES \033[0;37m"
   msgi -bar
