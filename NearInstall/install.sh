@@ -32,17 +32,16 @@
   }
  
  time_reboot() {
-  #clear && clear
-  msgi -bar
-  echo -e "\e[1;93m     CONTINURA INSTALACION DESPUES DEL REBOOT"
-  msgi -bar
-  REBOOT_TIMEOUT="$1"
-  while [ $REBOOT_TIMEOUT -gt 0 ]; do
-    print_center -ne "-$REBOOT_TIMEOUT-\r"
-    sleep 1
-    : $((REBOOT_TIMEOUT--))
-  done
-  reboot
+  print_center -ama "REINICIANDO VPS EN $1 SEGUNDOS"
+   REBOOT_TIMEOUT="$1"
+   
+   while [ $REBOOT_TIMEOUT -gt 0 ]; do
+      print_center -ne "-$REBOOT_TIMEOUT-\r"
+      sleep 1
+      : $((REBOOT_TIMEOUT--))
+   done
+   reboot
+ }
 }
 
  fun_idi() {
@@ -178,9 +177,12 @@ echo "$txtofus" | rev
  
  post_reboot(){
    echo 'wget -O /root/install.sh "https://raw.githubusercontent.com/NearVPN/ADMRufuMod/main/NearInstall/install.sh"; clear; sleep 2; chmod +x /root/install.sh; /root/install.sh --continue' >> /root/.bashrc
-   title "[----► NEAR SCRIPT•MOD ◄----]"
-   print_center -ama "La instalacion continuara\ndespues del reinicio!!!"
-   msg -bar
+   msgi -bar
+  echo -e "\e[1;93m     CONTINURA INSTALACION DESPUES DEL REBOOT"
+  msgi -bar
+   #title "[----► NEAR SCRIPT•MOD ◄----]"
+   #print_center -ama "La instalacion continuara\ndespues del reinicio!!!"
+   #msg -bar
  }
  
  install_start(){
