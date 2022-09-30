@@ -126,7 +126,7 @@ ins &>/dev/null
 sleep 1.s
 [[ ! -e ${ADMRufu}/fixer ]] && touch ${ADMRufu}/fixer
 else
-#echo ""
+echo ""
 fi
 }
  
