@@ -124,8 +124,8 @@ echo "$txtofus" | rev
    [[ $(echo $permited|grep "${IP}") = "" ]] && {
      clear
      msg -bar
-     echo -e "\n\n\n\033[1;91m————————————————————————————————————————————————————\n      ¡ESTA KEY NO CONCUERDA CON EL INSTALADOR! \n                 CONATACTE A @Near365\n————————————————————————————————————————————————————\n\n\n"
-     #print_center -ama "CONTACTE A @Near365"
+     print_center -verm2 "¡LA IP $(wget -qO- ipv4.icanhazip.com) NO ESTA AUTORIZADA!"
+     print_center -ama "CONTACTE A @Near365"
      msg -bar
    	rm ${ADMRufu}
      [[ -e $HOME/lista-arq ]] && rm $HOME/lista-arq
@@ -149,43 +149,16 @@ echo "$txtofus" | rev
  		menu|menu_inst.sh|tool_extras.sh|chekup.sh)ARQ="${ADMRufu}";;
  		*)ARQ="${ADM_inst}";;
  	esac
+ 	mv -f ${SCPinstal}/$1 ${ARQ}/$1
  	chmod +x ${ARQ}/$1
  }
-
- error_fun() {
-    msgi -bar2
-    msgi -bar2
-    sleep 3s
-    clear && clear
-    echo "Codificacion Incorrecta" >/etc/SCRIPT-LATAM/errorkey
-    msgi -bar2
-    [[ $1 = "" ]] && fun_idi || {
-      [[ ${#1} -gt 2 ]] && fun_idi || id="$1"
-    }
-    echo -e "\033[1;31m               ¡# ERROR INESPERADO #¡\n          ESTA KEY YA FUE USADA O EXPIRO "
-    echo -e "\033[0;93m    -SI EL ERROR PERCISTE REVISAR PUERTO 81 TCP -"
-    msgi -bar2
-    echo -ne "\033[1;97m DESEAS REINTENTAR CON OTRA KEY  \033[1;31m[\033[1;93m S \033[1;31m/\033[1;93m N \033[1;31m]\033[1;97m: \033[1;93m" && read incertar_key
-    service apache2 restart >/dev/null 2>&1
-    [[ "$incertar_key" = "s" || "$incertar_key" = "S" ]] && incertar_key
-    clear && clear
-    msgi -bar2
-    msgi -bar2
-    [[ -d ${SCPinstal} ]] && rm -rf ${SCPinstal}
-    rm -rf lista-arq
-    echo -e "\033[1;97m          ---- INSTALACION CANCELADA  -----"
-    msgi -bar2
-    msgi -bar2
-    exit 1
-  }
-  
  
- #error_fun(){
- 	#msg -bar3
- #	print_center -verm "ERROR de enlace VPS<-->GENERADOR"
- 	#msg -bar3
- 	#[[ -d ${SCPinstal} ]] && rm -rf ${SCPinstal}
- 	#exit
+ error_fun(){
+ 	msg -bar3
+ 	print_center -verm "ERROR de enlace VPS<-->GENERADOR"
+ 	msg -bar3
+ 	[[ -d ${SCPinstal} ]] && rm -rf ${SCPinstal}
+ 	exit
  }
  
  post_reboot(){
