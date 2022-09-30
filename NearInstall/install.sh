@@ -224,14 +224,14 @@ apt-get install bc -y &>/dev/null && echo -e "\033[97m    ◽️ INSTALANDO BC" 
  }
  
  install_continue(){
-clear && clear
+   clear && clear
   #------- BARRA DE ESPERA
   msgi -bar2
   echo -e " \e[33m\033[1;100m   ===>> ►►  🖥  SCRIPT | NEAR-MOD  🖥  ◄◄ <<===   \033[1;37m"
-  print_center -ama "$distro $vercion"
   msgi -bar
   echo -e "  \033[1;41m   -- INSTALACION DE PAQUETES PARA NEAR-MOD --   \e[49m"
   msgi -bar
+  print_center -ama "$distro $vercion"
   dependencias
   sed -i "s;Listen 80;Listen 81;g" /etc/apache2/ports.conf >/dev/null 2>&1
   service apache2 restart >/dev/null 2>&1
@@ -247,6 +247,7 @@ clear && clear
   msgi -bar2
   #read -t 30 -n 1 -rsp $'\033[1;97m           Preciona Enter Para continuar\n'
    sleep 2
+   msgi -bar
    tput cuu1 && tput dl1
    print_center -ama "si algunas de las dependencias falla!!!\nal terminar, puede intentar instalar\nla misma manualmente usando el siguiente comando\napt install nom_del_paquete"
    enter
