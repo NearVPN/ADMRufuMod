@@ -87,33 +87,17 @@
     msg -nazu "       Instalando $i$(msg -ama "$pts")"
     if apt install $i -y &>/dev/null ; then
       msg -verd "INSTALADO"
-    else  
-    soft="python2"  
+    else    
       msg -verm2 "FAIL"
       sleep 2
       tput cuu1 && tput dl1
-      print_center -ama "aplicando fix a $i"
-  if [[ ! -e ${ADMRufu}/fixer ]]; then
-    echo ""
-ins(){
-export PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games/
-apt-get install python2 -y
-apt-get install python -y 
-apt install python pip -y
-rm -rf /usr/bin/python; ln -s /usr/bin/python2.7 /usr/bin/python
-}
-ins &>/dev/null && echo -e "INSTALANDO FIX" | pv -qL 40
-sleep 1.s
-[[ ! -e ${ADMRufu}/fixer ]] && touch ${ADMRufu}/fixer
-else
-echo ""
-fi
-     dpkg --configure -a >/dev/null 2>&1
+      #print_center -ama "aplicando fix a $i"
+      sistema22
+      dpkg --configure -a >/dev/null 2>&1
       sleep 2
       tput cuu1 && tput dl1
-
-      msg -nazu "       Instalando $i$(msg -ama "$pts")"
-      if apt install $i -y &>/dev/null ; then
+      msg -nazu "       Instalando python2(msg -ama "$pts")"
+      if apt install python2 -y &>/dev/null ; then
         msg -verd "INSTALADO"
       else
         msg -verm2 "FAIL"
