@@ -22,7 +22,7 @@
  rm $(pwd)/$0 &> /dev/null
  
  stop_install(){
-  	msgi -bar2
+    msgi -bar2
     msgi -bar2
     echo -e "\033[1;97m          ---- INSTALACION CANCELADA  -----"
     msgi -bar2
@@ -42,6 +42,19 @@
    done
    reboot
  }
+
+ fun_idi() {
+    clear && clear
+    msgi -bar2
+    echo -e "\033[1;32m————————————————————————————————————————————————————"
+    figlet -w 85 -f smslant "         SCRIPT
+   NEAR-MOD  " | lolcat
+    msgi -ama "          [ ----- \033[1;97m 🐲 By @Near365 🐲\033[1;33m ----- ]"
+    echo -e "\033[1;32m————————————————————————————————————————————————————"
+    pv="$(echo es)"
+    [[ ${#id} -gt 2 ]] && id="es" || id="$pv"
+    byinst="true"
+  }
  
  os_system(){
    system=$(cat -n /etc/issue |grep 1 |cut -d' ' -f6,7,8 |sed 's/1//' |sed 's/      //')
@@ -127,7 +140,7 @@ echo "$txtofus" | rev
      print_center -verm2 "¡LA IP $(wget -qO- ipv4.icanhazip.com) NO ESTA AUTORIZADA!"
      print_center -ama "CONTACTE A @Near365"
      msg -bar
-   	rm ${ADMRufu}
+    rm ${ADMRufu}
      [[ -e $HOME/lista-arq ]] && rm $HOME/lista-arq
      exit
    } || {
@@ -144,21 +157,21 @@ echo "$txtofus" | rev
  }
  
  verificar_arq(){
- 	unset ARQ
- 	case $1 in
- 		menu|menu_inst.sh|tool_extras.sh|chekup.sh)ARQ="${ADMRufu}";;
- 		*)ARQ="${ADM_inst}";;
- 	esac
- 	mv -f ${SCPinstal}/$1 ${ARQ}/$1
- 	chmod +x ${ARQ}/$1
+  unset ARQ
+  case $1 in
+    menu|menu_inst.sh|tool_extras.sh|chekup.sh)ARQ="${ADMRufu}";;
+    *)ARQ="${ADM_inst}";;
+  esac
+  mv -f ${SCPinstal}/$1 ${ARQ}/$1
+  chmod +x ${ARQ}/$1
  }
  
  error_fun(){
- 	msg -bar3
- 	print_center -verm "ERROR de enlace VPS<-->GENERADOR"
- 	msg -bar3
- 	[[ -d ${SCPinstal} ]] && rm -rf ${SCPinstal}
- 	exit
+  msg -bar3
+  print_center -verm "ERROR de enlace VPS<-->GENERADOR"
+  msg -bar3
+  [[ -d ${SCPinstal} ]] && rm -rf ${SCPinstal}
+  exit
  }
  
  post_reboot(){
@@ -269,13 +282,13 @@ apt-get install bc -y &>/dev/null && echo -e "\033[97m    ◽️ INSTALANDO BC" 
      *)exit;;
    esac
  done
- 
- title "[----► NEAR SCRIPT•MOD ◄----]"
+ fun_idi
+ #title "[----► NEAR SCRIPT•MOD ◄----]"
  fun_ip
  while [[ ! $Key ]]; do
- 	echo -e "  $(msg -verm3 "╭╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼[")$(msg -azu "INGRESA TU KEY")$(msg -verm3 "]")"
- 	echo -ne "  $(msg -verm3 "╰╼")\033[37;1m>\e[32m\e[1m "
- 	read Key
+  echo -e "  $(msg -verm3 "╭╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼[")$(msg -azu "INGRESA TU KEY")$(msg -verm3 "]")"
+  echo -ne "  $(msg -verm3 "╰╼")\033[37;1m>\e[32m\e[1m "
+  read Key
  done
  msg -bar3
  msg -ne " Verificando Key: "
