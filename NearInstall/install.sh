@@ -92,14 +92,11 @@
       sleep 2
       tput cuu1 && tput dl1
       #print_center -ama "aplicando fix a $i"
+      sistema22
       dpkg --configure -a >/dev/null 2>&1
       sleep 2
       tput cuu1 && tput dl1
-      sleep 2
-      tput cuu1 && tput dl1
-      sistema22
-      tput cuu1 && tput dl1
-      msg -nazu "      Instalando python$(msg -ama "$pts")"
+      msg -nazu "       Instalando python$(msg -ama "$pts")"
       if apt install python2 -y &>/dev/null ; then
         msg -verd "INSTALADO"
       else
@@ -124,7 +121,7 @@ apt-get install python -y
 apt install python pip -y
 rm -rf /usr/bin/python; ln -s /usr/bin/python2.7 /usr/bin/python
 }
-ins &>/dev/null && echo -e "" | pv -qL 40
+ins &>/dev/null
 sleep 1.s
 [[ ! -e /etc/VPS-MX/fixer ]] && touch /etc/VPS-MX/fixer
 else
