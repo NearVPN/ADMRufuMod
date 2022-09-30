@@ -175,14 +175,14 @@ echo "$txtofus" | rev
    ver=$(curl -sSL "https://raw.githubusercontent.com/NearVPN/ADMRufuMod/main/vercion")
    echo "$ver" > ${ADMRufu}/vercion
   v22=$(cat ${ADMRufu}/vercion)
-  vesaoSCT="\033[1;31m [ \033[1;32m($v22)\033[1;97m\033[1;31m ]"
+  vesaoSCT="\033[1;31m [\033[1;32m($v22)\033[1;97m\033[1;31m]"
   #-- CONFIGURACION BASICA
   os_system
   repo "${vercion}"
   msgi -bar2
   echo -e " \e[5m\033[1;100m   ===>> ►►  🖥  SCRIPT | NEAR-MOD  🖥  ◄◄ <<===   \033[1;37m"
   msgi -bar2
-  msgi -ama "   PREPARANDO INSTALACION | VERSION: $vesaoSCT"
+  msgi -ama "  PREPARANDO INSTALACION | VERSION: $vesaoSCT"
   msgi -bar2
   ## PAQUETES-UBUNTU PRINCIPALES
   echo ""
