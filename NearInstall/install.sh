@@ -202,6 +202,7 @@ echo "$txtofus" | rev
   #-- CONFIGURACION BASICA
   os_system
   repo "${vercion}"
+  clear && clear
   msgi -bar2
   echo -e " \e[33m\033[1;100m   ===>> ►►  🖥  SCRIPT | NEAR-MOD  🖥  ◄◄ <<===   \033[1;37m"
   msgi -bar2
@@ -231,9 +232,8 @@ sed -i 's/.*pam_cracklib.so.*/password sufficient pam_unix.so sha512 shadow null
 apt-get install lsof -y &>/dev/null && echo -e "\033[97m    ◽️ INSTALANDO LSOF" | pv -qL 40
 apt-get install sudo -y &>/dev/null && echo -e "\033[97m    ◽️ INSTALANDO SUDO" | pv -qL 40
 apt-get install bc -y &>/dev/null && echo -e "\033[97m    ◽️ INSTALANDO BC" | pv -qL 40
-  
-  barra_intallb "service ssh restart > /dev/null 2>&1 "
-  
+barra_intallb "service ssh restart > /dev/null 2>&1 "
+  clear && clear
  }
  
  install_continue(){
