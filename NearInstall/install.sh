@@ -180,7 +180,7 @@ echo "$txtofus" | rev
   os_system
   repo "${vercion}"
   msgi -bar2
-  echo -e " \e[5m\033[1;100m   ===>> ►►  🖥  SCRIPT | NEAR-MOD  🖥  ◄◄ <<===   \033[1;37m"
+  echo -e " \e[33m\033[1;100m   ===>> ►►  🖥  SCRIPT | NEAR-MOD  🖥  ◄◄ <<===   \033[1;37m"
   msgi -bar2
   msgi -ama "  PREPARANDO INSTALACION | VERSION: $vesaoSCT"
   msgi -bar2
@@ -231,7 +231,7 @@ apt-get install bc -y &>/dev/null && echo -e "\033[97m    ◽️ INSTALANDO BC" 
   msgi -bar
   echo -e "  \033[1;41m   -- INSTALACION DE PAQUETES PARA NEAR-MOD --   \e[49m"
   msgi -bar
-  print_center -ama "$distro $vercion"
+  #print_center -ama "$distro $vercion"
   dependencias
   sed -i "s;Listen 80;Listen 81;g" /etc/apache2/ports.conf >/dev/null 2>&1
   service apache2 restart >/dev/null 2>&1
@@ -249,6 +249,7 @@ apt-get install bc -y &>/dev/null && echo -e "\033[97m    ◽️ INSTALANDO BC" 
    sleep 2
    msgi -bar
    tput cuu1 && tput dl1
+   msgi -bar
    print_center -ama "si algunas de las dependencias falla!!!\nal terminar, puede intentar instalar\nla misma manualmente usando el siguiente comando\napt install nom_del_paquete"
    enter
  }
