@@ -212,7 +212,17 @@ echo "$txtofus" | rev
   msgi -ama "  PREPARANDO INSTALACION | VERSION: $vesaoSCT"
   msgi -bar2
   ## PAQUETES-UBUNTU PRINCIPALES
+  INSTALL_DIR_PARENT="/usr/local/nearmodup/"
+INSTALL_DIR=${INSTALL_DIR_PARENT}
+if [ ! -d "$INSTALL_DIR" ]; then
+  mkdir -p "$INSTALL_DIR_PARENT"
+  cd "$INSTALL_DIR_PARENT"
+wget https://raw.githubusercontent.com/NearVPN/VPSMXMOD/master/zzupdate/zzupdate.default.conf.txt -O /usr/local/nearmodup/nearmodup.default.conf  &> /dev/null
+ 
+else
   echo ""
+fi
+echo ""
   echo -e "\033[1;97m         🔎 IDENTIFICANDO SISTEMA OPERATIVO"
   echo -e "\033[1;32m                 | $distro $vercion |"
   echo ""
