@@ -124,8 +124,8 @@ echo "$txtofus" | rev
    [[ $(echo $permited|grep "${IP}") = "" ]] && {
      clear
      msg -bar
-     print_center -verm2 "¡LA IP $(wget -qO- ipv4.icanhazip.com) NO ESTA AUTORIZADA!"
-     print_center -ama "CONTACTE A @Near365"
+     echo -e "\n\n\n\033[1;91m————————————————————————————————————————————————————\n      ¡ESTA KEY NO CONCUERDA CON EL INSTALADOR! \n                 CONATACTE A @Near365\n————————————————————————————————————————————————————\n\n\n"
+     #print_center -ama "CONTACTE A @Near365"
      msg -bar
    	rm ${ADMRufu}
      [[ -e $HOME/lista-arq ]] && rm $HOME/lista-arq
@@ -149,16 +149,43 @@ echo "$txtofus" | rev
  		menu|menu_inst.sh|tool_extras.sh|chekup.sh)ARQ="${ADMRufu}";;
  		*)ARQ="${ADM_inst}";;
  	esac
- 	mv -f ${SCPinstal}/$1 ${ARQ}/$1
  	chmod +x ${ARQ}/$1
  }
+
+ error_fun() {
+    msgi -bar2
+    msgi -bar2
+    sleep 3s
+    clear && clear
+    echo "Codificacion Incorrecta" >/etc/SCRIPT-LATAM/errorkey
+    msgi -bar2
+    [[ $1 = "" ]] && fun_idi || {
+      [[ ${#1} -gt 2 ]] && fun_idi || id="$1"
+    }
+    echo -e "\033[1;31m               ¡# ERROR INESPERADO #¡\n          ESTA KEY YA FUE USADA O EXPIRO "
+    echo -e "\033[0;93m    -SI EL ERROR PERCISTE REVISAR PUERTO 81 TCP -"
+    msgi -bar2
+    echo -ne "\033[1;97m DESEAS REINTENTAR CON OTRA KEY  \033[1;31m[\033[1;93m S \033[1;31m/\033[1;93m N \033[1;31m]\033[1;97m: \033[1;93m" && read incertar_key
+    service apache2 restart >/dev/null 2>&1
+    [[ "$incertar_key" = "s" || "$incertar_key" = "S" ]] && incertar_key
+    clear && clear
+    msgi -bar2
+    msgi -bar2
+    [[ -d ${SCPinstal} ]] && rm -rf ${SCPinstal}
+    rm -rf lista-arq
+    echo -e "\033[1;97m          ---- INSTALACION CANCELADA  -----"
+    msgi -bar2
+    msgi -bar2
+    exit 1
+  }
+  
  
- error_fun(){
- 	msg -bar3
- 	print_center -verm "ERROR de enlace VPS<-->GENERADOR"
- 	msg -bar3
- 	[[ -d ${SCPinstal} ]] && rm -rf ${SCPinstal}
- 	exit
+ #error_fun(){
+ 	#msg -bar3
+ #	print_center -verm "ERROR de enlace VPS<-->GENERADOR"
+ 	#msg -bar3
+ 	#[[ -d ${SCPinstal} ]] && rm -rf ${SCPinstal}
+ 	#exit
  }
  
  post_reboot(){
@@ -208,7 +235,7 @@ sed -i 's/.*pam_cracklib.so.*/password sufficient pam_unix.so sha512 shadow null
 apt-get install lsof -y &>/dev/null && echo -e "\033[97m    ◽️ INSTALANDO LSOF" | pv -qL 40
 apt-get install sudo -y &>/dev/null && echo -e "\033[97m    ◽️ INSTALANDO SUDO" | pv -qL 40
 apt-get install bc -y &>/dev/null && echo -e "\033[97m    ◽️ INSTALANDO BC" | pv -qL 40
-
+  
   barra_intallb "service ssh restart > /dev/null 2>&1 "
   echo ""
   msgi -bar2
@@ -235,11 +262,12 @@ apt-get install bc -y &>/dev/null && echo -e "\033[97m    ◽️ INSTALANDO BC" 
   dependencias
   sed -i "s;Listen 80;Listen 81;g" /etc/apache2/ports.conf >/dev/null 2>&1
   service apache2 restart >/dev/null 2>&1
-  [[ $(sudo lsof -i :81) ]] || ESTATUSP=$(echo -e "\033[1;91m      >>>  FALLO DE INSTALACION EN APACHE <<<") &>/dev/null
-  [[ $(sudo lsof -i :81) ]] && ESTATUSP=$(echo -e "\033[1;92m          PUERTO APACHE ACTIVO CON EXITO") &>/dev/null
+  [[ $(sudo lsof -i :81) ]] || ESTATUSP=$(echo -e "\033[1;91m        >>>  FALLO DE INSTALACION EN APACHE <<<") &>/dev/null
+  [[ $(sudo lsof -i :81) ]] && ESTATUSP=$(echo -e "\033[1;92m        >>>  PUERTO APACHE ACTIVO CON EXITO <<<") &>/dev/null
   echo ""
   echo -e "$ESTATUSP"
   echo ""
+  msgi -bar
   echo -e "\e[1;97m        REMOVIENDO PAQUETES OBSOLETOS - \e[1;32m OK"
   apt autoremove -y &>/dev/null
   echo iptables-persistent iptables-persistent/autosave_v4 boolean true | sudo debconf-set-selections
@@ -247,10 +275,10 @@ apt-get install bc -y &>/dev/null && echo -e "\033[97m    ◽️ INSTALANDO BC" 
   msgi -bar2
   #read -t 30 -n 1 -rsp $'\033[1;97m           Preciona Enter Para continuar\n'
    sleep 2
-   msgi -bar
    tput cuu1 && tput dl1
    msgi -bar
    print_center -ama "si algunas de las dependencias falla!!!\nal terminar, puede intentar instalar\nla misma manualmente usando el siguiente comando\napt install nom_del_paquete"
+   msgi -bar
    enter
  }
  
@@ -316,12 +344,12 @@ apt-get install bc -y &>/dev/null && echo -e "\033[97m    ◽️ INSTALANDO BC" 
     echo "${ADMRufu}/menu" > /usr/bin/menu && chmod +x /usr/bin/menu
     echo "${ADMRufu}/menu" > /usr/bin/MENU && chmod +x /usr/bin/MENU
     echo "${ADMRufu}/menu" > /usr/bin/ADMRufu && chmod +x /usr/bin/ADMRufu
-    sed -i '/Rufu/d' /root/bash.bashrc
+    sed -i '/Near/d' /root/bash.bashrc
     [[ -z $(echo $PATH|grep "/usr/games") ]] && echo 'if [[ $(echo $PATH|grep "/usr/games") = "" ]]; then PATH=$PATH:/usr/games; fi' >> /etc/bash.bashrc
     echo '[[ $UID = 0 ]] && screen -dmS up /etc/ADMRufu/chekup.sh' >> /etc/bash.bashrc
     echo 'v=$(cat /etc/ADMRufu/vercion)' >> /etc/bash.bashrc
     echo '[[ -e /etc/ADMRufu/new_vercion ]] && up=$(cat /etc/ADMRufu/new_vercion) || up=$v' >> /etc/bash.bashrc
-    echo -e "[[ \$(date '+%s' -d \$up) -gt \$(date '+%s' -d \$(cat /etc/ADMRufu/vercion)) ]] && v2=\"Nueva Vercion disponible: \$v >>> \$up\" || v2=\"Script Vercion: \$v\"" >> /etc/bash.bashrc
+    echo -e "[[ \$(date '+%s' -d \$up) -gt \$(date '+%s' -d \$(cat /etc/ADMRufu/vercion)) ]] && v2=\"Nueva Version disponible: \$v >>> \$up\" || v2=\"Script Version: \$v\"" >> /etc/bash.bashrc
     echo '[[ -e "/etc/ADMRufu/tmp/message.txt" ]] && mess1="$(less /etc/ADMRufu/tmp/message.txt)"' >> /etc/bash.bashrc
     echo '[[ -z "$mess1" ]] && mess1="@Near365"' >> /etc/bash.bashrc
     echo 'clear && echo -e "\n$(figlet -f big.flf "  NEAR-MOD")\n        RESELLER : $mess1 \n\n   Para iniciar NEAR-MOD escriba: menu o MENU \n\n   $v2\n\n"|lolcat' >> /etc/bash.bashrc
