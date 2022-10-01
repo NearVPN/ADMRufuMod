@@ -43,7 +43,4 @@ msg -ama "$(fun_trans "TCP Parado Con Exito")!"
 } || msg -ama "$(fun_trans "Cancelado")!"
 fi
 }
-#TCPspeed
-while [[  $? -eq 0 ]]; do
-  TCPspeed
-done
+TCPspeed
