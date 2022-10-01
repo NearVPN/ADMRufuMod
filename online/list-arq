@@ -1,6 +1,6 @@
 COMPARTIR ARCHIVO ONLINE \e[32m[working] = apacheon.sh
 MONITOR DE TAREAS HTOP \e[32m[working] = monitor_htop.sh
-TCP SPEED = TCPspeed.sh
+TCP SPEED \e[32m[working] = TCPspeed.sh
 FAIL2BAN \e[32m[working] = fail2ban.sh
 FIREWALL VPS \e[32m[working] = firewall-VPS.sh
 FIX SSL \e[31m[beta] = ssl.sh
