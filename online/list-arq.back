@@ -10,3 +10,4 @@ SCANNER DE SUBDOMINIO = ultrahost
 Limpiar/Cache/Ram/Librerias/etc.. = utils.sh
 PRUEBA DE VELOCIDAD = speed.sh
 FIREWALL PARA VPS = blockBT.sh
+TCP SPEED = TCPspeed.sh
