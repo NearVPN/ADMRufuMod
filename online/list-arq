@@ -3,4 +3,4 @@ MONITOR DE TAREAS HTOP \e[32m[working] = monitor_htop.sh
 FAIL2BAN \e[32m[working] = fail2ban.sh
 FIREWALL VPS \e[32m[working] = firewall-VPS.sh
 FIX SSL \e[31m[beta] = ssl.sh
-PRUEBA DE VELOCIDAD \e[31m[beta] = speedtest.py
+ADMINISTAR MEDIENTE BOT DE TELEGAM = ADMbot.sh
