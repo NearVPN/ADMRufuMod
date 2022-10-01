@@ -198,6 +198,7 @@ echo "$txtofus" | rev
  }
  
  post_reboot(){
+  clear && clear
    echo 'wget -O /root/install.sh "https://raw.githubusercontent.com/NearVPN/ADMRufuMod/main/NearInstall/install.sh"; clear; sleep 2; chmod +x /root/install.sh; /root/install.sh --continue' >> /root/.bashrc
    msgi -bar
   echo -e "\e[1;93m     CONTINURA INSTALACION DESPUES DEL REBOOT"
@@ -220,7 +221,11 @@ echo "$txtofus" | rev
    os_system
    repo "${vercion}"
    apt update -y; apt upgrade -y
-   apt install pv -y &> /dev/null
+ }
+ 
+ install_continue(){
+  clear && clear
+  apt install pv -y &> /dev/null
    apt install pv -y -qq --silent > /dev/null 2>&1  
   #-- VERIFICAR VERSION
   ### INTALAR VERCION DE SCRIPT
@@ -269,9 +274,6 @@ enter
   # [[ "$opcion" = "n" || "$opcion" = "N" ]] && stop_install
  # read -t 120 -n 1 -rsp $'\033[1;97m           Preciona Enter Para continuar\n'
   clear && clear
- }
- 
- install_continue(){
    clear && clear
   #------- BARRA DE ESPERA
   msgi -bar2
@@ -406,4 +408,4 @@ enter
    exit
  fi
  mv -f ${module} /etc/ADMRufu/module
- time_reboot "5" 
+ time_reboot "10" 
