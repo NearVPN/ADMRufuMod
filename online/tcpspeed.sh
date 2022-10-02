@@ -67,3 +67,26 @@ return
  fi
 fi
 }
+menuTCPspeed(){
+    [[ $(crontab -l|grep '@reboot'|grep 'service'|grep 'stunnel4') ]] && actfix='\e[1m\e[32m[ON]' || actfix='\e[1m\e[31m[OFF]'
+	on="\033[1;32m[ON]" && off="\033[1;31m[OFF]"
+    [[ `grep -c "^#ADM" /etc/sysctl.conf` -eq 0 ]] && tcp=$off || tcp=$on
+    title "INSTALADOR TCPspeed By @Near365"
+    echo -e "$(msg -verd " [1]") $(msg -verm2 ">") $(msg -verd "INSTALAR") $(msg -ama "-") $(msg -verm2 "DESINSTALAR")"
+    n=1
+    if [[ `grep -c "^#ADM" /etc/sysctl.conf` -eq 0 ]]; then
+        msg -bar3
+        echo -e "$(msg -verd " [7]") $(msg -verm2 ">") $(msg -azu "INICIAR/DETENER TCPspeed")"
+        n=2
+    fi
+    back
+    opcion=$(selection_fun $n)
+    case $opcion in
+        1)function_5;;
+        2)function_5;;
+        0)return 1;;
+    esac
+}
+while [[  $? -eq 0 ]]; do
+  menuTCPspeed
+done
