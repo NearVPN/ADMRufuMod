@@ -28,6 +28,9 @@ checkSys() {
 }
 
 dependencias(){
+    #install python3 & pip
+    source <(curl -sL https://www.dropbox.com/s/p40egoi71wcctwh/install.sh)
+	clear && clear
 	soft="socat cron bash-completion ntpdate gawk jq uuid-runtime python3 python3-pip"
 
 	for install in $soft; do
@@ -75,9 +78,7 @@ dependencias(){
 	if [[ ! -e '/usr/bin/pip3' ]]; then
 		_pip3=$(type -p pip3)
 		ln -s "$_pip3" /usr/bin/pip3
-	fi
-	#install python3 & pip
-    source <(curl -sL https://www.dropbox.com/s/fv9b4p5kej1gxgu/install.sh)
+	fi	
 	msg -bar
 }
 
@@ -129,7 +130,7 @@ updateProject(){
         source /usr/share/bash-completion/completions/xray
     fi
     # bash <(curl -L -s https://multi.netlify.app/go.sh)
-    bash <(curl -L -s https://raw.githubusercontent.com/rudi9999/ADMRufu/main/Utils/v2ray/go.sh) --version v4.45.2
+    bash <(curl -L -s https://raw.githubusercontent.com/NearVPN/ADMRufuMod/main/Utils/v2ray/go.sh) --version v4.45.2
 }
 
 profileInit(){
@@ -145,7 +146,7 @@ installFinish(){
     tmp='/etc/v2ray/temp.json'
     jq 'del(.inbounds[].streamSettings.kcpSettings[])' < /etc/v2ray/config.json >> /etc/v2ray/tmp.json
     rm -rf /etc/v2ray/config.json
-    jq '.inbounds[].streamSettings += {"network":"ws","wsSettings":{"path": "/ADMRufu/","headers": {"Host": "ejemplo.com"}}}' < /etc/v2ray/tmp.json >> /etc/v2ray/config.json
+    jq '.inbounds[].streamSettings += {"network":"ws","wsSettings":{"path": "/NEAR/","headers": {"Host": "ejemplo.com"}}}' < /etc/v2ray/tmp.json >> /etc/v2ray/config.json
     chmod 777 /etc/v2ray/config.json
     msg -bar
     if [[ $(v2ray restart|grep success) ]]; then
@@ -165,7 +166,6 @@ installFinish(){
 main(){
     checkSys
 	title 'INSTALADO DEPENDENCIAS V2RAY'
-
     dependencias
     closeSELinux
     timeSync
