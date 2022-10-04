@@ -29,6 +29,7 @@ checkSys() {
 
 dependencias(){
 #install python3 & pip
+clear && clear
     source <(curl -sL https://www.dropbox.com/s/p40egoi71wcctwh/install.sh)	
 	clear && clear
     title 'INSTALADO DEPENDENCIAS V2RAY'
