@@ -28,10 +28,12 @@ checkSys() {
 }
 
 dependencias(){
-    title 'INSTALADO DEPENDENCIAS V2RAY'
-	
+	clear && clear 
+    #install python3 & pip
+    source <(curl -sL https://www.dropbox.com/s/p40egoi71wcctwh/install.sh)
 	soft="socat cron bash-completion ntpdate gawk jq uuid-runtime python3 python3-pip"
-
+	clear && clear
+    title 'INSTALADO DEPENDENCIAS V2RAY'
 	for install in $soft; do
 		leng="${#install}"
 		puntos=$(( 21 - $leng))
@@ -70,16 +72,15 @@ dependencias(){
 		fi
 	done
 
-	if [[ ! -e '/usr/bin/pip' ]]; then
-		_pip=$(type -p pip)
-		ln -s "$_pip" /usr/bin/pip
-	fi
+	#if [[ ! -e '/usr/bin/pip' ]]; then
+	#	_pip=$(type -p pip)
+	#	ln -s "$_pip" /usr/bin/pip
+	#fi
+	
 	if [[ ! -e '/usr/bin/pip3' ]]; then
 		_pip3=$(type -p pip3)
 		ln -s "$_pip3" /usr/bin/pip3
-	fi
-#install python3 & pip
-    source <(curl -sL https://www.dropbox.com/s/p40egoi71wcctwh/install.sh)	
+	fi	
 	msg -bar
 }
 
