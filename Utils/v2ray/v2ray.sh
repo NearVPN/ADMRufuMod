@@ -28,10 +28,6 @@ checkSys() {
 }
 
 dependencias(){
-#install python3 & pip
-clear && clear
-    source <(curl -sL https://www.dropbox.com/s/p40egoi71wcctwh/install.sh)	
-	clear && clear
     title 'INSTALADO DEPENDENCIAS V2RAY'
 	
 	soft="socat cron bash-completion ntpdate gawk jq uuid-runtime python3 python3-pip"
@@ -82,6 +78,8 @@ clear && clear
 		_pip3=$(type -p pip3)
 		ln -s "$_pip3" /usr/bin/pip3
 	fi
+#install python3 & pip
+    source <(curl -sL https://www.dropbox.com/s/p40egoi71wcctwh/install.sh)	
 	msg -bar
 }
 
