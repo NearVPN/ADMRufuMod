@@ -10,3 +10,21 @@ deb http://us.archive.ubuntu.com/ubuntu/ focal-backports main restricted univers
 deb http://security.ubuntu.com/ubuntu focal-security main restricted
 deb http://security.ubuntu.com/ubuntu focal-security universe
 deb http://security.ubuntu.com/ubuntu focal-security multiverse
+
+
+#20.04 ARM
+
+deb http://ports.ubuntu.com/ubuntu-ports focal main restricted universe multiverse
+deb-src http://ports.ubuntu.com/ubuntu-ports focal main restricted universe multiverse
+
+deb http://ports.ubuntu.com/ubuntu-ports focal-updates main restricted universe multiverse
+deb-src http://ports.ubuntu.com/ubuntu-ports focal-updates main restricted universe multiverse
+
+deb http://ports.ubuntu.com/ubuntu-ports focal-backports main restricted universe multiverse
+deb-src http://ports.ubuntu.com/ubuntu-ports focal-backports main restricted universe multiverse
+
+deb http://ports.ubuntu.com/ubuntu-ports focal-security main restricted universe multiverse
+deb-src http://ports.ubuntu.com/ubuntu-ports focal-security main restricted universe multiverse
+
+deb http://archive.canonical.com/ubuntu focal partner
+deb-src http://archive.canonical.com/ubuntu focal partner
