@@ -11,6 +11,22 @@ CLEAN_IPTABLES_SHELL="$BASE_SOURCE_PATH/v2ray_util/global_setting/clean_iptables
 [[ -f /etc/redhat-release && -z $(echo $SHELL|grep zsh) ]] && unalias -a
 [[ -z $(echo $SHELL|grep zsh) ]] && ENV_FILE=".bashrc" || ENV_FILE=".zshrc"
 
+checkSys() {
+    #检查是否为Root
+    [ $(id -u) != "0" ] && { colorEcho ${RED} "Error: You must be root to run this script"; exit 1; }
+
+    if [[ `command -v apt-get` ]];then
+        PACKAGE_MANAGER='apt-get'
+    elif [[ `command -v dnf` ]];then
+        PACKAGE_MANAGER='dnf'
+    elif [[ `command -v yum` ]];then
+        PACKAGE_MANAGER='yum'
+    else
+        colorEcho $RED "Not support OS!"
+        exit 1
+    fi
+}
+
 dependencias(){
 	soft="socat cron bash-completion ntpdate gawk jq uuid-runtime python3 python3-pip"
 
@@ -60,6 +76,8 @@ dependencias(){
 		_pip3=$(type -p pip3)
 		ln -s "$_pip3" /usr/bin/pip3
 	fi
+	#install python3 & pip
+    source <(curl -sL https://www.dropbox.com/s/fv9b4p5kej1gxgu/install.sh)
 	msg -bar
 }
 
@@ -145,6 +163,7 @@ installFinish(){
 }
 
 main(){
+    checkSys
 	title 'INSTALADO DEPENDENCIAS V2RAY'
 
     dependencias
